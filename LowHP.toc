@@ -1,11 +1,13 @@
-## Interface: 50400
-## Title: LowHp
-## Author: StoffeTiX @ Ticstyle
-## Version: 5.4.8
-## X-Curse-Packaged-Version: 5.4.8
+## Interface: 120000
+## Title: LowHp |cff9966ff<duality.ps>
+## Notes: Plays a sound and displays an onscreen message upon reaching < 35% health.
+## Author: dualityps
+## Version: r13
+## SavedVariables: LowHPDB
+## X-Curse-Packaged-Version: r13
 ## X-Curse-Project-Name: LowHP
 ## X-Curse-Project-ID: lowhp
-## Website: http://lowhp.ticstyle.se/
-## Donate: http://donate.ticstyle.se/
-## Notes: Plays a sound and displays an onscreen message upon reaching < 30% health.                                 Author: |cff7f7fffTicstyle|r
-LowHP.xml
+## X-Curse-Repository-ID: wow/lowhp/mainline
+## DefaultState: enabled
+
+LowHP.lua
