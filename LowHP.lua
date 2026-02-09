@@ -15,6 +15,7 @@ local defaults = {
 }
 
 local soundList = {
+    { name = "You seek death", id = 14571 },
     { name = "Raid Warning", id = 3081 },
     { name = "Aggro", id = 120 },
     { name = "Legendary", id = 63971 },
@@ -42,7 +43,6 @@ local soundList = {
     { name = "C'thun", id = 8585 },
     { name = "Executus", id = 8279 },
     { name = "Air Horn", id = 12867 },
-    { name = "Alarm", id = 14571 },
     { name = "Cooldown", id = 878 },
     { name = "OOM", id = 250 },
     { name = "Fizzle", id = 918 },
