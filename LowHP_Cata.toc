@@ -2,12 +2,13 @@
 ## Title: LowHp |cff9966ff<duality.ps>
 ## Notes: Plays a sound and displays an onscreen message upon reaching < 30% health.
 ## Author: dualityps
-## Version: r13
+## Version: r14
 ## SavedVariables: LowHPDB
-## X-Curse-Packaged-Version: r13
+## X-Curse-Packaged-Version: r14
 ## X-Curse-Project-Name: LowHP
 ## X-Curse-Project-ID: lowhp
 ## X-Curse-Repository-ID: wow/lowhp/mainline
 ## DefaultState: enabled
+
 
 LowHP.lua
