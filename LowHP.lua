@@ -10,7 +10,7 @@ local defaults = {
     text = "Low HEALTH",
     size = 40,
     soundIndex = 1,
-    fontIndex = 1, -- Morpheus is now index 1
+    fontIndex = 1, 
     color = { r = 1, g = 0, b = 0, a = 1 }
 }
 
@@ -139,7 +139,6 @@ local function CreateOptions()
         insets = { left = 5, right = 5, top = 5, bottom = 5 }
     })
     
-    -- Added GameFontNormal here to prevent 'Font not set' error before ApplyStyle runs
     previewText = previewBg:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     previewText:SetPoint("CENTER")
     previewText:SetText("Preview")
@@ -338,7 +337,7 @@ frame:SetScript("OnEvent", function(self, event, arg1)
             InterfaceOptions_AddCategory(optionsPanel)
         end
         
-        print("|cff9966ffLowHP:|r Loaded. Type /lhp.")
+        print("|cff9966ffLowHP:|r Loaded. Options: Esc -> Options -> AddOns -> LowHP")
         return 
     end
 
@@ -348,12 +347,3 @@ frame:SetScript("OnEvent", function(self, event, arg1)
         end
     end
 end)
-
-SLASH_LOWHP1 = "/lhp"
-SlashCmdList["LOWHP"] = function(msg)
-    if Settings and Settings.OpenToCategory then
-        Settings.OpenToCategory("LowHP")
-    else
-        InterfaceOptionsFrame_OpenToCategory("LowHP")
-    end
-end
