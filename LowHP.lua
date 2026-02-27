@@ -22,49 +22,28 @@ local soundList = {
     { name = "Ready Check", id = 8960 },
     { name = "Fel Reaver", id = 8593 },
     { name = "Level Up", id = 1269 },
-    { name = "Auction", id = 1198 },
     { name = "Quest Done", id = 618 },
     { name = "Boss Whisper", id = 8959 },
     { name = "PVP Flag", id = 8212 },
-    { name = "Drum", id = 10006 },
     { name = "Gong", id = 16964 },
-    { name = "Bell", id = 16806 },
-    { name = "Explosion", id = 3280 },
     { name = "Shotgun", id = 1396 },
-    { name = "Sword", id = 3163 },
     { name = "Click", id = 1133 },
-    { name = "Ping", id = 3109 },
     { name = "Coin", id = 1204 },
     { name = "Error", id = 1435 },
     { name = "Human Aggro", id = 2776 },
-    { name = "Orc Aggro", id = 2686 },
     { name = "Murloc", id = 399 },
     { name = "Illidan", id = 11466 },
-    { name = "C'thun", id = 8585 },
     { name = "Executus", id = 8279 },
     { name = "Air Horn", id = 12867 },
     { name = "Cooldown", id = 878 },
-    { name = "OOM", id = 250 },
     { name = "Fizzle", id = 918 },
-    { name = "Unsheath", id = 669 },
-    { name = "Sheath", id = 673 },
     { name = "Invite", id = 1211 },
-    { name = "Whisper", id = 3125 },
     { name = "Wrong", id = 12891 },
     { name = "Right", id = 12892 },
-    { name = "Escape", id = 851 },
     { name = "Gnome Laugh", id = 5824 },
-    { name = "Goblin Laugh", id = 15307 },
-    { name = "Hearthstone", id = 1426 },
-    { name = "Resurrect", id = 1421 },
     { name = "Bloodlust", id = 8049 },
     { name = "Execute", id = 2862 },
-    { name = "Stealth", id = 2963 },
     { name = "Mark", id = 2959 },
-    { name = "Shield", id = 2598 },
-    { name = "Blink", id = 2548 },
-    { name = "Shape", id = 2478 },
-    { name = "Aura", id = 2542 },
 }
 
 local fontList = {
@@ -100,6 +79,31 @@ local function ApplyStyle()
     end
 end
 
+-- --- CUSTOM SOUND HANDLER ---
+local activeSoundHandle = nil
+
+local function PlayAlertSound(soundId)
+    -- Stop any currently playing alert sound to prevent overlapping spam
+    if activeSoundHandle then
+        StopSound(activeSoundHandle, 500) -- Stop with a quick 500ms fade
+    end
+
+    local willPlay, handle = PlaySound(soundId, "Master")
+    
+    if willPlay and handle then
+        activeSoundHandle = handle
+        
+        -- Start a 3-second timer
+        C_Timer.After(3, function()
+            -- Verify we are stopping the correct sound (in case another one started)
+            if activeSoundHandle == handle then
+                StopSound(handle, 1000) -- Fade the sound out over 1000ms (1 second)
+                activeSoundHandle = nil
+            end
+        end)
+    end
+end
+
 local function CheckVisuals()
     local defaultFrame = _G["LowHealthFrame"]
     if not defaultFrame then return end
@@ -110,7 +114,7 @@ local function CheckVisuals()
             ApplyStyle()
             warningText:Show()
             local soundData = soundList[db.soundIndex] or soundList[1]
-            PlaySound(soundData.id, "Master") 
+            PlayAlertSound(soundData.id) 
             isWarningActive = true
         end
     else
@@ -245,7 +249,7 @@ local function CreateOptions()
         LowHPDB.soundIndex = LowHPDB.soundIndex - 1
         if LowHPDB.soundIndex < 1 then LowHPDB.soundIndex = #soundList end
         UpdateUI()
-        PlaySound(soundList[LowHPDB.soundIndex].id, "Master")
+        PlayAlertSound(soundList[LowHPDB.soundIndex].id)
     end)
 
     local btnSNext = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
@@ -256,7 +260,7 @@ local function CreateOptions()
         LowHPDB.soundIndex = LowHPDB.soundIndex + 1
         if LowHPDB.soundIndex > #soundList then LowHPDB.soundIndex = 1 end
         UpdateUI()
-        PlaySound(soundList[LowHPDB.soundIndex].id, "Master")
+        PlayAlertSound(soundList[LowHPDB.soundIndex].id)
     end)
 
     local btnFPrev = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
@@ -286,7 +290,7 @@ local function CreateOptions()
     btnTest:SetScript("OnClick", function()
         ApplyStyle()
         warningText:Show()
-        PlaySound(soundList[LowHPDB.soundIndex].id, "Master")
+        PlayAlertSound(soundList[LowHPDB.soundIndex].id)
         C_Timer.After(3, function() 
              if not isWarningActive then warningText:Hide() end 
         end)
