@@ -1,10 +1,10 @@
-## Interface: 120000
+## Interface: 120001
 ## Title: LowHp |cff9966ff<duality.ps>
 ## Notes: Plays a sound and displays an onscreen message upon reaching < 35% health.
 ## Author: dualityps
-## Version: r14
+## Version: r15
 ## SavedVariables: LowHPDB
-## X-Curse-Packaged-Version: r14
+## X-Curse-Packaged-Version: r15
 ## X-Curse-Project-Name: LowHP
 ## X-Curse-Project-ID: lowhp
 ## X-Curse-Repository-ID: wow/lowhp/mainline
