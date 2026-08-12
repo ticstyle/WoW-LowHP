@@ -1,4 +1,4 @@
-## Interface: 120007, 120005, 11508
+## Interface: 120100, 120007, 120005, 11508
 ## Title: LowHp |cff9966ff<dualityps>
 ## Notes: Plays a sound and displays an onscreen message upon reaching < 35% health.
 ## Author: dualityps
