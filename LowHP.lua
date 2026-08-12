@@ -1,3 +1,7 @@
+-- LowHP.lua
+-- https://github.com/ticstyle/WoW-LowHP
+-- luacheck: globals CreateFrame UIParent LowHPDB StopSound PlaySound C_Timer ColorPickerFrame Settings InterfaceOptions_AddCategory
+
 local addonName = ...
 local textFrame = CreateFrame("Frame", "LowHP_TextFrame", UIParent)
 local warningText = textFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
@@ -85,7 +89,7 @@ local activeSoundHandle = nil
 local function PlayAlertSound(soundId)
 	-- Stop any currently playing alert sound to prevent overlapping spam
 	if activeSoundHandle then
-		StopSound(activeSoundHandle, 500) -- Stop with a quick 500ms fade
+		StopSound(activeSoundHandle, 500)
 	end
 
 	local willPlay, handle = PlaySound(soundId, "Master")
@@ -95,9 +99,8 @@ local function PlayAlertSound(soundId)
 
 		-- Start a 3-second timer
 		C_Timer.After(3, function()
-			-- Verify we are stopping the correct sound (in case another one started)
 			if activeSoundHandle == handle then
-				StopSound(handle, 1000) -- Fade the sound out over 1000ms (1 second)
+				StopSound(handle, 1000)
 				activeSoundHandle = nil
 			end
 		end)
@@ -232,7 +235,7 @@ local function CreateOptions()
 	_G[slider:GetName() .. "Low"]:SetText("10")
 	_G[slider:GetName() .. "High"]:SetText("100")
 	_G[slider:GetName() .. "Text"]:SetText("Text Size")
-	slider:SetScript("OnValueChanged", function(self, value)
+	slider:SetScript("OnValueChanged", function(_, value)
 		LowHPDB.size = math.floor(value)
 		ApplyStyle()
 	end)
@@ -352,7 +355,7 @@ local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:RegisterEvent("ADDON_LOADED")
 
-frame:SetScript("OnEvent", function(self, event, arg1)
+frame:SetScript("OnEvent", function(_, event, arg1)
 	if event == "ADDON_LOADED" and arg1 == addonName then
 		if type(LowHPDB) ~= "table" then
 			LowHPDB = {}
@@ -378,7 +381,7 @@ frame:SetScript("OnEvent", function(self, event, arg1)
 
 		local optionsPanel = CreateOptions()
 		if Settings and Settings.RegisterCanvasLayoutCategory then
-			local category, layout = Settings.RegisterCanvasLayoutCategory(optionsPanel, "LowHP")
+			local category = Settings.RegisterCanvasLayoutCategory(optionsPanel, "LowHP")
 			Settings.RegisterAddOnCategory(category)
 		else
 			InterfaceOptions_AddCategory(optionsPanel)
