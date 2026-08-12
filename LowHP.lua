@@ -1,6 +1,8 @@
 -- LowHP.lua
 -- https://github.com/ticstyle/WoW-LowHP
--- luacheck: globals CreateFrame UIParent LowHPDB StopSound PlaySound C_Timer ColorPickerFrame Settings InterfaceOptions_AddCategory
+
+-- luacheck: globals CreateFrame UIParent LowHPDB StopSound PlaySound
+-- luacheck: globals C_Timer ColorPickerFrame Settings InterfaceOptions_AddCategory
 
 local addonName = ...
 local textFrame = CreateFrame("Frame", "LowHP_TextFrame", UIParent)
