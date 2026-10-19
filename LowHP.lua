@@ -1,7 +1,7 @@
 -- LowHP.lua
 -- https://github.com/ticstyle/WoW-LowHP
 
--- luacheck: globals CreateFrame UIParent LowHPDB StopSound PlaySound
+-- luacheck: globals CreateFrame UIParent LowHPDB StopSound PlaySound PlaySoundFile
 -- luacheck: globals C_Timer ColorPickerFrame Settings InterfaceOptions_AddCategory
 
 local addonName = ...
@@ -21,45 +21,57 @@ local defaults = {
 }
 
 local soundList = {
-	{ name = "You seek death", id = 14571 },
-	{ name = "Raid Warning", id = 3081 },
-	{ name = "Aggro", id = 120 },
-	{ name = "Legendary", id = 63971 },
-	{ name = "Ready Check", id = 8960 },
-	{ name = "Fel Reaver", id = 8593 },
-	{ name = "Level Up", id = 1269 },
-	{ name = "Quest Done", id = 618 },
-	{ name = "Boss Whisper", id = 8959 },
-	{ name = "PVP Flag", id = 8212 },
-	{ name = "Gong", id = 16964 },
-	{ name = "Shotgun", id = 1396 },
-	{ name = "Click", id = 1133 },
-	{ name = "Coin", id = 1204 },
-	{ name = "Error", id = 1435 },
-	{ name = "Human Aggro", id = 2776 },
-	{ name = "Murloc", id = 399 },
-	{ name = "Illidan", id = 11466 },
-	{ name = "Executus", id = 8279 },
-	{ name = "Air Horn", id = 12867 },
-	{ name = "Cooldown", id = 878 },
-	{ name = "Fizzle", id = 918 },
-	{ name = "Invite", id = 1211 },
-	{ name = "Wrong", id = 12891 },
-	{ name = "Right", id = 12892 },
-	{ name = "Gnome Laugh", id = 5824 },
-	{ name = "Bloodlust", id = 8049 },
-	{ name = "Execute", id = 2862 },
-	{ name = "Mark", id = 2959 },
+	{ name = "[1] You seek death", id = "Interface\\AddOns\\LowHP\\media\\rivendareaggro01.ogg" },
+	{ name = "[2] Sheathshield", id = "Interface\\AddOns\\LowHP\\media\\sheathshield.ogg" },
+	{ name = "[3] Creature Fidget 1", id = "Interface\\AddOns\\LowHP\\media\\8061616_fidget_8343178.ogg" },
+	{ name = "[4] Creature Fidget 2", id = "Interface\\AddOns\\LowHP\\media\\8061616_fidget_8343188.ogg" },
+	{ name = "[5] Goblin Welder", id = "Interface\\AddOns\\LowHP\\media\\go_11go_goblin_fakebanana02_loop_6381616.ogg" },
+	{ name = "[6] Coins", id = 120 },
+	{ name = "[7] Legendary", id = 63971 },
+	{ name = "[8] Ready Check", id = 8960 },
+	{ name = "[9] Fel Reaver", id = 8593 },
+	{ name = "[10] Splash", id = 1269 },
+	{ name = "[11] Quest Done", id = 618 },
+	{ name = "[12] Boss Whisper", id = 8959 },
+	{ name = "[13] PVP Flag", id = 8212 },
+	{ name = "[14] Monster ghasp", id = 1396 },
+	{ name = "[15] Cage", id = "Interface\\AddOns\\LowHP\\media\\go_twilightshammercage_close_04.ogg" },
+	{ name = "[16] Coin", id = 1204 },
+	{ name = "[17] Magic", id = 1435 },
+	{ name = "[18] Human Help Me", id = 2776 },
+	{ name = "[19] Murloc", id = 399 },
+	{ name = "[20] Door Runes", id = "Interface\\AddOns\\LowHP\\media\\ahn_qiraj_doorrunesopen.ogg" },
+	{ name = "[21] Executus", id = 8279 },
+	{ name = "[22] Air Horn", id = 12867 },
+	{ name = "[23] Cooldown", id = 878 },
+	{ name = "[24] Fizzle", id = 918 },
+	{ name = "[25] Undead Drake Death", id = "Interface\\AddOns\\LowHP\\media\\undeaddrakedeath.ogg" },
+	{ name = "[26] Myst Lightning", id = "Interface\\AddOns\\LowHP\\media\\silvermystlightningbolt01var2.ogg" },
+	{ name = "[27] Cata Dragon", id = "Interface\\AddOns\\LowHP\\media\\gs_cata_sfx_kit3_05.ogg" },
+	{ name = "[28] Me feast on you all", id = 5824 },
+	{ name = "[29] Come forth my servants", id = 8049 },
+	{ name = "[30] Help Me/Assist Me", id = 2862 },
+	{ name = "[31] Huh, aah", id = 2959 },
+	{ name = "[32] Fel Weaver Death", id = "Interface\\AddOns\\LowHP\\media\\vo_70_fel_weaver_death_04.ogg" },
+	{ name = "[33] Arator", id = "Interface\\AddOns\\LowHP\\media\\vo_1217_arator_8347261.ogg" }, 
+	{ name = "[34] Snow Bear Mount", id = "Interface\\AddOns\\LowHP\\media\\dwarfbearsnowmount_cast_oneshot_8300922.ogg" },
+	{ name = "[35] Kithix Wound", id = "Interface\\AddOns\\LowHP\\media\\sound_creature_kithix_kithix_wound_8281484.ogg" },
+	{ name = "[36] Major Glyph Destroy", id = "Interface\\AddOns\\LowHP\\media\\glyph_majordestroy.ogg" },
+	{ name = "[37] Hardcore Duel", id = "Interface\\AddOns\\LowHP\\media\\1.14.4_ui_classic_hardcore_duel_stereo.ogg" },
+	{ name = "[38] Hardcore Death", id = "Interface\\AddOns\\LowHP\\media\\1.14.4_ui_classic_hardcore_death_stereo.ogg" },
+	{ name = "[39] Death Will Not Stop Me", id = "Interface\\AddOns\\LowHP\\media\\rivendaredeath.ogg" },
+	{ name = "[40] Blowdart", id = "Interface\\AddOns\\LowHP\\media\\go_11go_goblin_machine07_oneshot_6256194.ogg" },
+	
 }
 
 local fontList = {
-	{ name = "Morpheus (Clean)", path = "Fonts\\MORPHEUS.TTF", style = "" },
-	{ name = "Friz Quadrata", path = "Fonts\\FRIZQT__.TTF", style = "OUTLINE" },
-	{ name = "Arial Narrow", path = "Fonts\\ARIALN.TTF", style = "OUTLINE" },
-	{ name = "Skurri", path = "Fonts\\SKURRI.TTF", style = "OUTLINE" },
-	{ name = "2002", path = "Fonts\\2002.TTF", style = "OUTLINE" },
-	{ name = "Damage Font", path = "Fonts\\K_Damage.TTF", style = "OUTLINE" },
-	{ name = "Page Text", path = "Fonts\\K_Pagetext.TTF", style = "OUTLINE" },
+	{ name = "[1] Morpheus (Clean)", path = "Fonts\\MORPHEUS.TTF", style = "" },
+	{ name = "[2] Friz Quadrata", path = "Fonts\\FRIZQT__.TTF", style = "OUTLINE" },
+	{ name = "[3] Arial Narrow", path = "Fonts\\ARIALN.TTF", style = "OUTLINE" },
+	{ name = "[4] Skurri", path = "Fonts\\SKURRI.TTF", style = "OUTLINE" },
+	{ name = "[5] 2002", path = "Fonts\\2002.TTF", style = "OUTLINE" },
+	{ name = "[6] Damage Font", path = "Fonts\\K_Damage.TTF", style = "OUTLINE" },
+	{ name = "[7] Page Text", path = "Fonts\\K_Pagetext.TTF", style = "OUTLINE" },
 }
 
 textFrame:SetSize(300, 100)
@@ -94,7 +106,17 @@ local function PlayAlertSound(soundId)
 		StopSound(activeSoundHandle, 500)
 	end
 
-	local willPlay, handle = PlaySound(soundId, "Master")
+	local willPlay, handle
+	if type(soundId) == "string" then
+		-- Custom sound file path bundled with the addon
+		willPlay, handle = PlaySoundFile(soundId, "Master")
+	else
+		-- Try SoundKitID first, then fall back to FileDataID
+		willPlay, handle = PlaySound(soundId, "Master")
+		if not willPlay then
+			willPlay, handle = PlaySoundFile(soundId, "Master")
+		end
+	end
 
 	if willPlay and handle then
 		activeSoundHandle = handle
