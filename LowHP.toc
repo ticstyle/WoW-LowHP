@@ -2,7 +2,7 @@
 ## Title: LowHp |cff9966ff<dualityps>
 ## Notes: Plays a sound and displays an onscreen message upon reaching < 35% health.
 ## Author: dualityps
-## Version: v3.2.0
+## Version: v3.2.1
 ## SavedVariables: LowHPDB
 ## DefaultState: enabled
 
