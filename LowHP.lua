@@ -25,7 +25,10 @@ local soundList = {
 	{ name = "[2] Sheathshield", id = "Interface\\AddOns\\LowHP\\media\\sheathshield.ogg" },
 	{ name = "[3] Creature Fidget 1", id = "Interface\\AddOns\\LowHP\\media\\8061616_fidget_8343178.ogg" },
 	{ name = "[4] Creature Fidget 2", id = "Interface\\AddOns\\LowHP\\media\\8061616_fidget_8343188.ogg" },
-	{ name = "[5] Goblin Welder", id = "Interface\\AddOns\\LowHP\\media\\go_11go_goblin_fakebanana02_loop_6381616.ogg" },
+	{
+		name = "[5] Goblin Welder",
+		id = "Interface\\AddOns\\LowHP\\media\\go_11go_goblin_fakebanana02_loop_6381616.ogg",
+	},
 	{ name = "[6] Coins", id = 120 },
 	{ name = "[7] Legendary", id = 63971 },
 	{ name = "[8] Ready Check", id = 8960 },
@@ -53,15 +56,23 @@ local soundList = {
 	{ name = "[30] Help Me/Assist Me", id = 2862 },
 	{ name = "[31] Huh, aah", id = 2959 },
 	{ name = "[32] Fel Weaver Death", id = "Interface\\AddOns\\LowHP\\media\\vo_70_fel_weaver_death_04.ogg" },
-	{ name = "[33] Arator", id = "Interface\\AddOns\\LowHP\\media\\vo_1217_arator_8347261.ogg" }, 
-	{ name = "[34] Snow Bear Mount", id = "Interface\\AddOns\\LowHP\\media\\dwarfbearsnowmount_cast_oneshot_8300922.ogg" },
-	{ name = "[35] Kithix Wound", id = "Interface\\AddOns\\LowHP\\media\\sound_creature_kithix_kithix_wound_8281484.ogg" },
+	{ name = "[33] Arator", id = "Interface\\AddOns\\LowHP\\media\\vo_1217_arator_8347261.ogg" },
+	{
+		name = "[34] Snow Bear Mount",
+		id = "Interface\\AddOns\\LowHP\\media\\dwarfbearsnowmount_cast_oneshot_8300922.ogg",
+	},
+	{
+		name = "[35] Kithix Wound",
+		id = "Interface\\AddOns\\LowHP\\media\\sound_creature_kithix_kithix_wound_8281484.ogg",
+	},
 	{ name = "[36] Major Glyph Destroy", id = "Interface\\AddOns\\LowHP\\media\\glyph_majordestroy.ogg" },
 	{ name = "[37] Hardcore Duel", id = "Interface\\AddOns\\LowHP\\media\\1.14.4_ui_classic_hardcore_duel_stereo.ogg" },
-	{ name = "[38] Hardcore Death", id = "Interface\\AddOns\\LowHP\\media\\1.14.4_ui_classic_hardcore_death_stereo.ogg" },
+	{
+		name = "[38] Hardcore Death",
+		id = "Interface\\AddOns\\LowHP\\media\\1.14.4_ui_classic_hardcore_death_stereo.ogg",
+	},
 	{ name = "[39] Death Will Not Stop Me", id = "Interface\\AddOns\\LowHP\\media\\rivendaredeath.ogg" },
 	{ name = "[40] Blowdart", id = "Interface\\AddOns\\LowHP\\media\\go_11go_goblin_machine07_oneshot_6256194.ogg" },
-	
 }
 
 local fontList = {
